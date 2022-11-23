@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/ilifsan55/foods-map/static/css/main.a1aefcad.css",
-    "main.js": "/ilifsan55/foods-map/static/js/main.ae337e3f.js",
-    "static/js/787.b701888c.chunk.js": "/ilifsan55/foods-map/static/js/787.b701888c.chunk.js",
-    "static/media/neko.jpeg": "/ilifsan55/foods-map/static/media/neko.220b7c18c7dc9a69a71f.jpeg",
-    "static/media/googlemap.png": "/ilifsan55/foods-map/static/media/googlemap.df8a6effe647da68c01c.png",
-    "static/media/googlemap_grayscale.png": "/ilifsan55/foods-map/static/media/googlemap_grayscale.a5804316c0da8f5863d2.png",
-    "static/media/hotpepper.png": "/ilifsan55/foods-map/static/media/hotpepper.5599acc9ab76195fe7b8.png",
-    "static/media/hotpepper_grayscale.png": "/ilifsan55/foods-map/static/media/hotpepper_grayscale.55e0e70d00338eb25565.png",
-    "index.html": "/ilifsan55/foods-map/index.html",
-    "main.a1aefcad.css.map": "/ilifsan55/foods-map/static/css/main.a1aefcad.css.map",
-    "main.ae337e3f.js.map": "/ilifsan55/foods-map/static/js/main.ae337e3f.js.map",
-    "787.b701888c.chunk.js.map": "/ilifsan55/foods-map/static/js/787.b701888c.chunk.js.map"
+    "main.css": "/foods-map/static/css/main.a1aefcad.css",
+    "main.js": "/foods-map/static/js/main.a207dc0c.js",
+    "static/js/787.b701888c.chunk.js": "/foods-map/static/js/787.b701888c.chunk.js",
+    "static/media/neko.jpeg": "/foods-map/static/media/neko.220b7c18c7dc9a69a71f.jpeg",
+    "static/media/googlemap.png": "/foods-map/static/media/googlemap.df8a6effe647da68c01c.png",
+    "static/media/googlemap_grayscale.png": "/foods-map/static/media/googlemap_grayscale.a5804316c0da8f5863d2.png",
+    "static/media/hotpepper.png": "/foods-map/static/media/hotpepper.5599acc9ab76195fe7b8.png",
+    "static/media/hotpepper_grayscale.png": "/foods-map/static/media/hotpepper_grayscale.55e0e70d00338eb25565.png",
+    "index.html": "/foods-map/index.html",
+    "main.a1aefcad.css.map": "/foods-map/static/css/main.a1aefcad.css.map",
+    "main.a207dc0c.js.map": "/foods-map/static/js/main.a207dc0c.js.map",
+    "787.b701888c.chunk.js.map": "/foods-map/static/js/787.b701888c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a1aefcad.css",
-    "static/js/main.ae337e3f.js"
+    "static/js/main.a207dc0c.js"
   ]
 }
