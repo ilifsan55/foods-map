@@ -60,8 +60,11 @@ export function doGoogleMapSearchPromise(request, service) {
     });
 
 }
-export function createMarker(lat, lng, index, ScrollFunc, name) {
+export function createMarker(lat, lng, index, ScrollFunc, OpenFunc, name) {
 
+    console.log("nit");
+    let pixelOffset = new window.google.maps.Size(0, -40);
+    let hover;
     let marker = new window.google.maps.Marker({
 
         map: map,
@@ -69,8 +72,32 @@ export function createMarker(lat, lng, index, ScrollFunc, name) {
         //label: name
         
     });
+
+    
+
+    marker.addListener('mouseover', () => {
+    hover = new window.google.maps.InfoWindow({
+            map: map,
+            content: name,
+            noSuppress: true,
+            zIndex: 20000,
+           pixelOffset: pixelOffset
+        });
+ 
+        hover.setPosition({ lat: lat, lng: lng });
+        
+ 
+       
+    });
+
+    marker.addListener('mouseout', ()　=> {
+        if(hover)
+            hover.close();
+    });
+
     marker.addListener( "click", () =>  {
-        ScrollFunc(index*399);
+        ScrollFunc(index*316);
+        OpenFunc();
     }  );
     markers.push(marker);
 
@@ -83,7 +110,7 @@ export function deleteMarkers () {
     }
 
     markers = [];
-    
+
 }
 
 export function deleteCircles () {

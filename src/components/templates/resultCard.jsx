@@ -84,12 +84,12 @@ export default function ResultCard(props) {
                         
                     </Grid>
 
-                    <Grid item xs={1} md={1}>
-                        {props.google && <IconButton onClick={() => window.open(`http://www.${props.google}`, "_blank")}>
+                    <Grid item xs={2} md={2}>
+                        {props.google && <IconButton onClick={() => window.open(`http://www.google.com`, "_blank")}>
                             <GoogleIcon size={1.5} />
                         </IconButton>}
                     </Grid>
-                    <Grid item xs={1} md={1}>
+                    <Grid item xs={2} md={2}>
                         {props.hotpepper && <IconButton onClick={() => window.open(`http://www.${props.hotpepper}`, "_blank")}>
                             <HotPepperIcon size={1.5} />
                         </IconButton>}

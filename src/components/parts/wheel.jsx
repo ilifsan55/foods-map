@@ -10,8 +10,8 @@ let countofSpins = 0;
 
 export default function Wheel(props) {
 
-
     let wheelToggle = useSelector(state => state.app.wheelToggle);
+ 
     return (
 
         <Drawer
@@ -22,30 +22,28 @@ export default function Wheel(props) {
                 sx: {
                     marginTop: 8,
                     width: 600,
-                    height:600                }
+                    height: 600,
+                    }
             }}
         >
 
             <Box>
-                <WheelMain trySearchFunc={props.trySearchFunc}></WheelMain>
+                <WheelMain  trySearchFunc={props.trySearchFunc}></WheelMain>
             </Box>
         </Drawer>
-
     )
 
+}
+
+function resizeWheel () {
 
 }
 
 function WheelMain(props) {
 
-    useEffect(() => {
-
-        
-    })
-
     const wheelContentsSolo = ['ラーメン', 'カレー', 'ハンバーガー', '牛丼', 'そば', 'ドーナツ', 'うどん', '中華'];
     const wheelContentsParty = ['焼肉', '回転寿司', 'イタリアン', 'ハンバーガー', '中華', '和食', 'ラーメン', 'インド料理'];
-
+    console.log("wheel is rendered");
 
     const colorCode = ['#FF6961', '#FFb480', '#F8f38d', '#42d6a4', '#08cad1', '#59adf6', '#9d94ff', '#c780e8'];
     const wheelRadius = 200; // in px
@@ -55,7 +53,6 @@ function WheelMain(props) {
     let wheelState = useSelector(state => state.wheelSlice.wheelState);
     let wheelContents = useSelector(state => state.wheelSlice.wheelContents);
     const dispatch = useDispatch();
-
     let styleObjectArray = [];
     let degreePerContents = 360 / wheelContents.length;
     let polygon = Math.tan(3.14 / wheelContents.length);
@@ -88,34 +85,35 @@ function WheelMain(props) {
         }
 
         countofSpins+=1;
-        let newSpin = 5000 * countofSpins;
-        console.log(newSpin);
         let rndSpin = Math.floor(Math.random() * (360)) + 1;
-        let intervalID = setTimeout(() => { dispatch(wheelSlice.actions.setWheelState(0)); getResult(); }, 10000)
+        let newSpin = (5000 * countofSpins) + rndSpin;
         dispatch(wheelSlice.actions.setWheelState(1))
-        dispatch(wheelSlice.actions.setRotation(newSpin + rndSpin));
+        dispatch(wheelSlice.actions.setRotation(newSpin));
+
+        let intervalID = setTimeout(() => { dispatch(wheelSlice.actions.setWheelState(0)); getResult(newSpin); }, 10000)
+        
 
     }
     
-    const getResult = () => {
+    const getResult = (spin) => {
         
-        let resultDegree = wheelRotation % 360;
-        let degreePerContent = 360 / wheelContents.length;
-        resultDegree -= degreePerContent / 2;
-        let result = 'Error';
-    
+        let resultDegree = spin % 360; //clamping WheelRotation to 0 between 360
+        let degreePerContent = 360 / wheelContents.length; //the size of each pies
+
+        resultDegree -= degreePerContent / 2; //handling negative numbers
+
         resultDegree = 360 - resultDegree;
     
         let temp = resultDegree / degreePerContent;
     
         temp = Math.floor(temp);
-        result = wheelContents[temp];
+
+        let result = wheelContents[temp];
 
         dispatch(appSlice.actions.handleInputField(result));
         dispatch(appSlice.actions.toggleWheel());
-        props.trySearchFunc();
-        console.log(result);
-    
+        props.trySearchFunc(result);
+
 
       
 

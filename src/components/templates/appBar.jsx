@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import AppSlice, { appSlice } from '../../redux/appSlice';
 import mapSlice from '../../redux/mapSlice';
 import { searchSlice } from '../../redux/searchSlice';
@@ -11,9 +10,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import FavIcon from '@mui/icons-material/FavoriteOutlined';
 import Checkbox from '@mui/material/Checkbox';
 import SearchBox from '../parts/searchBox';
-
 import Grid from '@mui/material/Grid';
 import ResultDrawer from './resultDrawer'
 import Wheel from '../parts/wheel'
@@ -40,10 +39,9 @@ let searchResults;
 const PartyButton = styled(Button)(({ theme }) => ({
 
   fontSize: '1.8rem',
-
   padding: theme.spacing(0, 0, 0, 0),
   textAlign: 'right',
-
+  marginLeft: 'auto'
 }))
 
 const SearchResultsElementMemo = React.memo(props => {
@@ -62,83 +60,68 @@ export default function AppBarTemplate() {
   const useHotPepper = useSelector(state => state.searchSlice.useHotPepper);
   const dispatch = useDispatch();
 
+  
 
   
   return (
     <div>
-      <Box
-        sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar
           position="static"
           sx={{ zIndex: (theme) => theme.zIndex.drawer + 100 }}
         >
           <Toolbar>
-            <Grid 
-              container 
-              spacing={1}
-              display="flex"
-              justify="space-between">
-            <Grid item xs={1} md={1}>
+
               <IconButton
                 size="large"
-                //edge="start"
                 color="inherit"
                 aria-label="menu"
                 onClick={() => { dispatch(mapSlice.actions.setResultsListToggle()); }}
+                edge="start"
               >
                 <MenuIcon />
               </IconButton>
-            </Grid>
-
-            <Grid item xs={5} md={5}>
+            
               <SearchBox
                 example="例："
                 requestUserLocMethod={(bool) => { dispatch(mapSlice.actions.requestUserLoc(bool)); }}
                 searchMethod={() => {
                  
                   trySearch(inputValue,useGoogle,useHotPepper)
-                  .then((received) => (dispatch(mapSlice.actions.setSearchResults(received))))}}></SearchBox>
-            </Grid>
+                  .then((received) => (dispatch(mapSlice.actions.setSearchResults(received)))).catch()}}></SearchBox>
 
-            <Grid item xs={0} md={1}>
-              
-            </Grid>
-
-            <Grid item xs={4} md={2}>
+            
               <Checkbox
                 value={useGoogle} onChange={() => (dispatch(searchSlice.actions.useGoogleToggle()))}
                 icon={<GoogleIcon size={2} checked={false} />}
-                checkedIcon={<GoogleIcon size={2} checked={true} />}
+                checkedIcon={<GoogleIcon size={2} checked={true}/>}
+                sx={{ ml: 5 }}
+                edge="start"
               />
+
               <Checkbox
-                sx={{ ml: 3 }}
+                sx={{ ml: 5 }}
                 value={useHotPepper} onChange={() => (dispatch(searchSlice.actions.useHotPepperToggle()))}
                 icon={<HotPepperIcon size={2} checked={false} />}
-                checkedIcon={<HotPepperIcon size={2} checked={true}
-                />}
+                checkedIcon={<HotPepperIcon size={2} checked={true}/>}
+                edge="start"
               />
-            </Grid>
+                
 
-            <Grid item xs={0} md={1}>
-              
-            </Grid>
-
-
-            <Grid item xs={1} md={1}>
               <PartyButton
+
                 onClick={() => { dispatch(appSlice.actions.toggleWheel()) }}
                 color="warning"
+                edge="start"
                 variant="contained">🎯</PartyButton>
-            </Grid>
-            </Grid>
 
           </Toolbar>
         </AppBar>
       </Box>
 
       <SearchResultsElementMemo results={searchResults}></SearchResultsElementMemo>
-      <WheelElementMemo trySearchFunc={() => {
-                  trySearch(inputValue,useGoogle,useHotPepper)
+      <WheelElementMemo trySearchFunc={(res) => {
+                  trySearch(res,useGoogle,useHotPepper)
                   .then((received) => (dispatch(mapSlice.actions.setSearchResults(received))))}}></WheelElementMemo>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { appSlice } from '../../redux/appSlice';
 
@@ -18,7 +18,7 @@ const Search = styled('div')(({ theme }) => ({
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
+    width: '55%',
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -33,7 +33,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
-    width: '80%',
+    width: 'calc(100% - 48px)',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
@@ -43,6 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBox(props) {
+
     /*
     [props]
     onChangeMethod
@@ -52,7 +53,7 @@ export default function SearchBox(props) {
     */
 
     const dispatch = useDispatch();
-
+    const inputValue = useSelector(state => state.app.inputValue);
     return (
         <Search>
             <SearchIconWrapper>
@@ -60,7 +61,7 @@ export default function SearchBox(props) {
                     size="large"
                     edge="start"
                     color="inherit"
-                    aria-label="menu"
+                    aria-label="search"
                     onClick={() => {
                         props.searchMethod();
                     }}
@@ -72,6 +73,7 @@ export default function SearchBox(props) {
 
                 onChange={(e) => {dispatch(appSlice.actions.handleInputField(e.target.value)) }}
                 placeholder={props.example}
+                value={inputValue}
                 
                 onKeyDown={e => {
                     if (e.key == 'Enter') {

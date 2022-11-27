@@ -11,19 +11,23 @@ import { getUserLocation } from '../parts/gMap';
 
 export default function ResultDrawer(props) {
 
+    console.log('drawe');
     let searchResults = props.results.results;
     let searchStatus = props.results.status;
     let lat = props.results.lat;
     let lng = props.results.lng;
-    let userCircle;
+    const dispatch = useDispatch();
     let resultsListToggle = useSelector(state => state.mapSlice.resultsListToggle);
     const drawerRef = useRef();
-　　 console.log(searchResults);
-    console.log(searchStatus);
 
-
-    const scr = (amount) => {
+    const scrollFunc = (amount) => {
         drawerRef.current.children[0].scrollTop = amount;
+    }
+    const openFunc = () =>{
+
+        if(!resultsListToggle)
+            dispatch(mapSlice.actions.setResultsListToggle());
+
     }
 
     return (
@@ -50,7 +54,7 @@ export default function ResultDrawer(props) {
                     
                     if(searchStatus == 'INITIALIZED'){
 
-                        d.push(<ResultCard name='検索してみましょう' vicinity='😀' mode='noresults'></ResultCard>);
+                        d.push(<ResultCard name='検索してみましょう' key={0} vicinity='😀' mode='noresults'></ResultCard>);
                         return d;
 
                     }
@@ -58,7 +62,7 @@ export default function ResultDrawer(props) {
                     createCircle(lat,lng,1000);
                     if(searchStatus == 'NO_RESULTS'){
 
-                        d.push(<ResultCard name='何も見つかりませんでした。' vicinity='🥺' mode='noresults'></ResultCard>);
+                        d.push(<ResultCard name='何も見つかりませんでした。' key={0} vicinity='🥺' mode='noresults'></ResultCard>);
                         return d;
                     }
 
@@ -67,7 +71,7 @@ export default function ResultDrawer(props) {
                         
                         let r = searchResults[i];
 
-                        createMarker(r.lat,r.lng,i,scr,r.name);
+                        createMarker(r.lat,r.lng,i,scrollFunc,openFunc,r.name);
 
                         d.push(<ResultCard 
                             key={i}
