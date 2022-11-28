@@ -1,21 +1,17 @@
-let map,service;
+let map;
+let service;
 let markers = [];
 let circles = [];
-
-let defaultUserLoc = {   
+const defaultUserLoc = {
     lat: 35.6809591,
-    lng: 139.7673068
+    lng: 139.7673068,
 };
-
 export function initMap(element, userLoc) {
-
-    console.log("Map Initialized");
- 
-    let map = new window.google.maps.Map(element, {
+    console.log('Map Initialized');
+    const map = new window.google.maps.Map(element, {
         center: userLoc,
-        zoom: 15
+        zoom: 15,
     });
-
     /*
     let userpos = new window.google.maps.Circle({
         center: userLoc,
@@ -28,27 +24,18 @@ export function initMap(element, userLoc) {
         strokeWeight: 1
     });
     */
-
     return map;
-
 }
-
 export function initService(map) {
-
-    let service = new window.google.maps.places.PlacesService(map);
+    const service = new window.google.maps.places.PlacesService(map);
     return service;
 }
-
-export function createMapInstance(){
-
+export function createMapInstance() {
     map = initMap(document.getElementById('map'), defaultUserLoc);
     service = initService(map);
     return map;
-
 }
-
 export function doGoogleMapSearchPromise(request, service) {
-
     return new Promise((resolve, reject) => {
         service.nearbySearch(request, (results, status) => {
             if (status === 'OK') {
@@ -58,105 +45,69 @@ export function doGoogleMapSearchPromise(request, service) {
             }
         });
     });
-
 }
-export function createMarker(lat, lng, index, ScrollFunc, OpenFunc, name) {
-
-    console.log("nit");
-    let pixelOffset = new window.google.maps.Size(0, -40);
-    let hover;
-    let marker = new window.google.maps.Marker({
-
+export function createMarker(lat, lng, index, scrollFunc, openFunc, name) {
+    const pixelOffset = new window.google.maps.Size(0, -40);
+    const marker = new window.google.maps.Marker({
         map: map,
-        position: { lat: lat, lng: lng },
-        //label: name
-        
+        position: {lat: lat, lng: lng},
+        // label: name
     });
-
-    
-
     marker.addListener('mouseover', () => {
-    hover = new window.google.maps.InfoWindow({
+    const hover = new window.google.maps.InfoWindow({
             map: map,
             content: name,
             noSuppress: true,
             zIndex: 20000,
-           pixelOffset: pixelOffset
+           pixelOffset: pixelOffset,
         });
- 
-        hover.setPosition({ lat: lat, lng: lng });
-        
- 
-       
+        hover.setPosition({lat: lat, lng: lng});
     });
 
-    marker.addListener('mouseout', ()　=> {
-        if(hover)
+    marker.addListener('mouseout', ()=> {
+        if (hover) {
             hover.close();
+        }
     });
 
-    marker.addListener( "click", () =>  {
-        ScrollFunc(index*316);
-        OpenFunc();
-    }  );
+    marker.addListener( 'click', ()=> {
+        scrollFunc(index*316);
+        spenFunc();
+    });
     markers.push(marker);
-
 }
-
-export function deleteMarkers () {
-
+export function deleteMarkers() {
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
-
     markers = [];
-
 }
-
-export function deleteCircles () {
-
+export function deleteCircles() {
     for (let i = 0; i < circles.length; i++) {
         circles[i].setMap(null);
     }
-
     circles = [];
-
 }
-
 export function createCircle(lat, lng, radius) {
-
-    let circle = new window.google.maps.Circle({
-        center: { lat: lat, lng: lng },
+    const circle = new window.google.maps.Circle({
+        center: {lat: lat, lng: lng},
         fillColor: '#0000ff',
         fillOpacity: 0.15,
         map: map,
         radius: radius,
         strokeColor: '#0000ff',
         strokeOpacity: 1,
-        strokeWeight: 1
+        strokeWeight: 1,
     });
-
     circles.push(circle);
-
 }
-
-export const getMapObject = () => {
-
+export const getMapObject = ()=> {
     return map;
-
-}
-
-export const getCenter = () => {
-
-    let latlng = map.getCenter();
+};
+export const getCenter = ()=> {
+    const latlng = map.getCenter();
     return latlng;
-}
-
-
-
+};
 export const getServiceObject = () => {
-
     return service;
-
-}
-
+};

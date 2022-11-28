@@ -1,18 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import {createSlice} from '@reduxjs/toolkit';
 // Initial values of the state
 const appInitialState = {
     mainState: 0,
     appState: 0,
     mapResults: [],
     inputValue: '',
-    wheelToggle:false
-
+    wheelToggle: false,
 };
-
 // creating the slice
 export const appSlice = createSlice({
-    name: 'app', 
+    name: 'app',
     initialState: appInitialState,
     reducers: {
         setState: (state, action) => {
@@ -24,17 +21,15 @@ export const appSlice = createSlice({
         setResults: (state, action) => {
             state.mapResults = action.payload;
         },
-        trySearch: (state,action)=>{
+        trySearch: (state, action)=>{
             state.searchRequest = action.payload;
         },
-        handleInputField: (state,action) => {
+        handleInputField: (state, action) => {
             state.inputValue = action.payload;
         },
-        toggleWheel: (state,action) => {
-
+        toggleWheel: (state, action) => {
             state.wheelToggle = !state.wheelToggle;
-        }
+        },
     },
 });
-
 export default appSlice;

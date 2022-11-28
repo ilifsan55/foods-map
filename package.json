@@ -50,6 +50,9 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.28.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.31.11",
     "gh-pages": "^4.0.0"
   }
 }

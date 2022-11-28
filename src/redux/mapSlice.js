@@ -1,15 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import {createSlice} from '@reduxjs/toolkit';
 // Initial values of the state
 const initState = {
     isUserLocRequested: false,
     searchResults: {
-        results:[],
-        status:'INITIALIZED'
+        results: [],
+        status: 'INITIALIZED',
     },
     resultsListToggle: false,
 };
-
 // creating the slice
 export const mapSlice = createSlice({
     name: 'mapSlice',
@@ -25,8 +23,6 @@ export const mapSlice = createSlice({
         setResultsListToggle: (state, action) => {
             state.resultsListToggle = !state.resultsListToggle;
         },
-    }
-
+    },
     });
-
 export default mapSlice;
