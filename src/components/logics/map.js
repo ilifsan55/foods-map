@@ -72,7 +72,7 @@ export function createMarker(lat, lng, index, scrollFunc, openFunc, name) {
 
     marker.addListener( 'click', ()=> {
         scrollFunc(index*316);
-        spenFunc();
+        openFunc();
     });
     markers.push(marker);
 }
