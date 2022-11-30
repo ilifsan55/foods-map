@@ -35,6 +35,7 @@ export const trySearch = (keyword, useGoogle, useHotPepper) => {
             promiseGoogle = doGoogleMapSearchPromise(
                 createGoogleRequest(req), getServiceObject())
             .then((response) => {
+                console.log('google');
                 responseGoogle = perseGoogleResults(response);
             }).catch((status) => {
                 responseGoogle = perseGoogleResults(status);
@@ -187,10 +188,8 @@ export function perseGoogleResults(results) {
             result_temp.google = response.url;
 
         });*/
-
         // cors error occurs
-
-        parsedResults.push(result_temp);
+        parsedResults.push(resultTemp);
     }
     return parsedResults;
 }

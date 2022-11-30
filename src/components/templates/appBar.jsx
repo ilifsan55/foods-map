@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {appSlice} from '../../redux/appSlice';
 import mapSlice from '../../redux/mapSlice';
+import {searchSlice} from '../../redux/searchSlice';
 import {styled} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
